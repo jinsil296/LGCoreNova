@@ -1,18 +1,18 @@
 [submodule "Kitcha-BE"]
 	path = Kitcha-BE
-	url = https://github.com/Team4-Kitcha/Kitcha-BE.git
+	url = https://github.com/LGCoreNova/Kitcha-BE
 [submodule "Kitcha-FE"]
 	path = Kitcha-FE
-	url = https://github.com/Team4-Kitcha/Kitcha-FE.git
+	url = https://github.com/LGCoreNova/Kitcha-FE
 [submodule "Kitcha-Article"]
 	path = Kitcha-Article
-	url = https://github.com/Team4-Kitcha/Kitcha-Article.git
+	url = https://github.com/LGCoreNova/Kitcha-Article
 [submodule "Kitcha-Board"]
 	path = Kitcha-Board
-	url = https://github.com/Team4-Kitcha/Kitcha-Board.git
+	url = https://github.com/LGCoreNova/Kitcha-Board
 [submodule "Kitcha-Authentication"]
 	path = Kitcha-Authentication
-	url = https://github.com/Team4-Kitcha/Kitcha-Authentication.git
+	url = https://github.com/LGCoreNova/Kitcha-Authentication
 [submodule "Config"]
 	path = Config
-	url = https://github.com/Team4-Kitcha/Config.git
+	url = https://github.com/LGCoreNova/Config
