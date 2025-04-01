@@ -7,11 +7,11 @@
 - **구성 기술**: Spring Boot, Spring Cloud, Eureka, Config Server, AWS ECS, ECR, RDS, S3, Docker, Jenkins, GitHub
 
 ## 2. 서비스 구성
-
-| Outer-Architecture | API Gateway | 개발자/회원 등에게 하나의 주소를 제공 |
+| 구조명 | 서비스명 | 설명 |
 | --- | --- | --- |
-|  | **Eureka** | 서비스 등록과 정보 검색을 제공 |
-|  | **Config Server** | GitHub에서개별 설정 파일을 가져와서 공유 |
+| Outer-Architecture | API Gateway | 개발자/회원 등에게 하나의 주소를 제공 |
+|  | Eureka | 서비스 등록과 정보 검색을 제공 |
+|  | Config Server | GitHub에서개별 설정 파일을 가져와서 공유 |
 | Inner-Architecture | authentication | 회원 가입, 로그인, JWT 검사 |
 |  | board | 게시판 CRUD |
 |  | article | 게시물 CRUD, S3 PDF upload |
