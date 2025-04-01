@@ -1,27 +1,44 @@
-![ppt-1-표지 - 수연](https://github.com/user-attachments/assets/09ccc0b5-8509-43d5-812b-5720d7ef895f)
-![ppt-2-목차](https://github.com/user-attachments/assets/0c1a082f-f7e0-45c0-9848-6a540cf4569c)
-![ppt-3-주제](https://github.com/user-attachments/assets/24cbfe9d-31a6-4699-b2e4-33f8e484f5e3)
-![ppt-4-UI-1](https://github.com/user-attachments/assets/f8455957-565a-4c15-8928-1a57025c0fa0)
-![ppt-5-UI-2](https://github.com/user-attachments/assets/20af5381-3c4e-4e30-97e9-8412725daee6)
-![ppt-6-UI-3](https://github.com/user-attachments/assets/b73d27b5-be73-403a-8498-3716a62da2ae)
-![ppt-7-UI-4](https://github.com/user-attachments/assets/3b42c7e5-a172-4ab5-ade0-3f594f96c8bd)
-![ppt-8-UI-5](https://github.com/user-attachments/assets/4ac2fa7d-4d3e-4725-b987-7eb15ed0d34a)
-![ppt-9-UI-6](https://github.com/user-attachments/assets/43e7e488-32b1-4603-975a-b23fcad9125a)
-![ppt-10-UI-7](https://github.com/user-attachments/assets/56285ebc-ac77-412d-a588-a3ea8b270656)
-![ppt-14-ERD](https://github.com/user-attachments/assets/3cce448e-d9a7-44a3-ba85-4adaf71cb6ae)
-![ppt-11-API명세서](https://github.com/user-attachments/assets/68746331-88ee-4aa1-afcd-9c4198860810)
-![ppt-12-API명세서](https://github.com/user-attachments/assets/15796ce2-69ca-456f-b1d3-c53e9b481847)
-![ppt-13-API명세서](https://github.com/user-attachments/assets/966c4f1b-c187-4fef-9125-1c2e749e157f)
-![ppt-15-시스템구성도](https://github.com/user-attachments/assets/d84f2297-27d7-4f56-ab2a-e9257abc297d)
-![ppt-16-DC-1](https://github.com/user-attachments/assets/efd24c6f-a99a-4a74-88f3-7845aa0cc08c)
-![ppt-17-DC-2](https://github.com/user-attachments/assets/2880c9ee-3cf9-4c91-bec7-535f0b05e375)
-![ppt-18-DC-3](https://github.com/user-attachments/assets/1a89ea47-d46c-4610-950c-f77a434c7830)
-![ppt-19-DC-4](https://github.com/user-attachments/assets/4ee67824-65fa-4211-b2c0-d2d7631ea75c)
-![ppt-20](https://github.com/user-attachments/assets/e0dc7397-c765-43e9-ad0e-8d660a0456ce)
-![ppt-21](https://github.com/user-attachments/assets/a4e414d9-9493-43ce-84a6-cb7221efc479)
-![ppt-22](https://github.com/user-attachments/assets/55decff7-4763-411e-b981-3291a45f5a2e)
-![ppt-23](https://github.com/user-attachments/assets/14e790f4-efeb-4aa7-9d8f-93518eeebbca)
-![ppt-24](https://github.com/user-attachments/assets/e31d1e89-154e-42ce-8892-6ba04d20da0b)
-![ppt-25](https://github.com/user-attachments/assets/aa35a1b7-5ad7-49e3-b796-6ebab4a2d2ea)
-![ppt-26](https://github.com/user-attachments/assets/518a3780-d23e-412b-94dd-88e980891ed4)
-![ppt-27](https://github.com/user-attachments/assets/1ef82c2c-d2a5-4f93-b26f-991be1a3760a)
+
+![image](https://github.com/user-attachments/assets/7d65d571-7e07-40e6-b606-d7bdfd7d2f12)
+## 1. 프로젝트 개요
+
+- **프로젝트 명**: CoreNova(Kitcha.ver2)
+- **기술 원칙**: Microservices Architecture (MSA)
+- **구성 기술**: Spring Boot, Spring Cloud, Eureka, Config Server, AWS ECS, ECR, RDS, S3, Docker, Jenkins, GitHub
+
+## 2. 서비스 구성
+
+| Outer-Architecture | API Gateway | 개발자/회원 등에게 하나의 주소를 제공 |
+| --- | --- | --- |
+|  | **Eureka** | 서비스 등록과 정보 검색을 제공 |
+|  | **Config Server** | GitHub에서개별 설정 파일을 가져와서 공유 |
+| Inner-Architecture | authentication | 회원 가입, 로그인, JWT 검사 |
+|  | board | 게시판 CRUD |
+|  | article | 게시물 CRUD, S3 PDF upload |
+| Front-End | Web Page | S3를 통한 정적 웹 호스팅 |
+- 의존 서비스 구성
+    
+    
+    | 서비스 | 의존 서비스 | 설명 |
+    | --- | --- | --- |
+    | `auth` | RDS (MySQL) | 사용자 인증 정보 저장 |
+    | `board` | RDS (MySQL), S3 | 게시글 및 PDF 파일 저장 |
+    | 모든 서비스 | `config-service`, `eureka-service` | 설정 및 서비스 디스커버리 기능 |
+
+## 3. 아키텍처 및 서비스 흐름
+
+Kitcha 프로젝트는 MSA 기반으로 구성되어 있으며, 클라이언트 요청부터 서비스 처리, 배포와 모니터링까지 다음과 같은 흐름으로 운영됩니다:
+
+- **프론트엔드 웹사이트**는 S3에 정적 호스팅되어 있으며, 사용자의 요청은 **API Gateway**를 거쳐 내부 마이크로서비스로 전달됩니다.
+- Gateway는 **Eureka**를 통해 서비스 위치를 확인하고, **ALB(Application Load Balancer)**의 DNS를 통해 **ECS Fargate**에서 동작 중인 마이크로서비스 태스크로 요청을 라우팅합니다.
+- 각 마이크로서비스(`auth`, `board`, `article`)는 Eureka에 등록되며, 필요에 따라 서로 통신하거나 RDS, S3 등 외부 리소스를 활용합니다.
+- **CI/CD 파이프라인**은 GitHub Webhook → Jenkins → Docker 이미지 빌드 및 ECR 푸시 → ECS 태스크 정의 등록 및 서비스 업데이트 순서로 자동화되어 있습니다.
+- Fargate 기반 서비스는 개별 인스턴스에 접근할 수 없기 때문에, **로그는 AWS CloudWatch Logs**를 통해 수집·모니터링합니다.
+
+## 4. 설정 파일 구성 정보
+
+  [config](https://github.com/LGCoreNova/Config)
+
+## 5. 트러블 슈팅 가이드
+
+  [troubleshooting](https://github.com/LGCoreNova/Kitcha/blob/main/troubleShooting.md)
