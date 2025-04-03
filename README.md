@@ -30,7 +30,7 @@
 Kitcha 프로젝트는 MSA 기반으로 구성되어 있으며, 클라이언트 요청부터 서비스 처리, 배포와 모니터링까지 다음과 같은 흐름으로 운영됩니다:
 
 - **프론트엔드 웹사이트**는 S3에 정적 호스팅되어 있으며, 사용자의 요청은 **API Gateway**를 거쳐 내부 마이크로서비스로 전달됩니다.
-- Gateway는 **Eureka**를 통해 서비스 위치를 확인하고, **ALB(Application Load Balancer)**의 DNS를 통해 **ECS Fargate**에서 동작 중인 마이크로서비스 태스크로 요청을 라우팅합니다.
+- Gateway는 **Eureka**를 통해 서비스 위치를 확인하고, **ALB(Application Load Balancer)** 의 DNS를 통해 **ECS Fargate**에서 동작 중인 마이크로서비스 태스크로 요청을 라우팅합니다.
 - 각 마이크로서비스(`auth`, `board`, `article`)는 Eureka에 등록되며, 필요에 따라 서로 통신하거나 RDS, S3 등 외부 리소스를 활용합니다.
 - **CI/CD 파이프라인**은 GitHub Webhook → Jenkins → Docker 이미지 빌드 및 ECR 푸시 → ECS 태스크 정의 등록 및 서비스 업데이트 순서로 자동화되어 있습니다.
 - Fargate 기반 서비스는 개별 인스턴스에 접근할 수 없기 때문에, **로그는 AWS CloudWatch Logs**를 통해 수집·모니터링합니다.
